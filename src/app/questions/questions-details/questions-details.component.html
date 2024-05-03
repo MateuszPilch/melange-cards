@@ -1,0 +1,17 @@
+<div>
+  <input [(ngModel)]="this.questionText">
+  <select [(ngModel)]="this.questionType">
+    <option value="0">One</option>
+    <option value="1">All</option>
+  </select>
+  <button (click)="addQuestion()">+</button>
+</div>
+<button (click)="questionsVisibility()"><p [hidden]="areQuestionsVisible">Show question</p><p [hidden]="!areQuestionsVisible">Hide question</p></button>
+<ul *ngIf="questionPool && questionPool.questions" [hidden]="!areQuestionsVisible">
+  <li *ngFor="let question of questionPool.questions">
+    {{question.text}}
+    {{question.type}}
+    <button (click)="removeQuestion(questionPool, question)">X</button>
+  </li>
+</ul>
+<button (click)="this.questionSection()">Back</button>

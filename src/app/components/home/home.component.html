@@ -1,0 +1,17 @@
+<div>
+  <input [(ngModel)]="this.playerName">
+  <button (click)="addPlayer(playerName)">+</button>
+</div>
+<div>
+  <select [(ngModel)]="this.selectedQuestionPool">
+    <option *ngFor="let question of questionPool" [ngValue]="question">{{question.name}}</option>
+  </select>
+  <button (click)="questionSection()">+</button>
+</div>
+<ul>
+  <li *ngFor="let player of playerList">
+    {{player}}
+    <button (click)="removePlayer(player)">X</button>
+  </li>
+</ul>
+<button (click)="startGame()">Start</button>
