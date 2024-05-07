@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Question, QuestionPool } from '../../models/question.model';
 import { GameService } from '../../services/game/game.service';
 import { QuestionService } from '../../services/question/question.service';
+import { Player } from '../../models/player.model';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +12,7 @@ import { QuestionService } from '../../services/question/question.service';
 })
 export class GameComponent {
   currentPlayerIndex: number = 0;
-  playerList: string[] = [];
+  playerList: Player[] = [];
 
   currentQuestion!: Question;
   questions: Question[] = [];
@@ -27,7 +28,7 @@ export class GameComponent {
     });
   }
 
-  getPlayerList(): string[] {
+  getPlayerList(): Player[] {
     return this.gameService.getPlayerList();
   }
 

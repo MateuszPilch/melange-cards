@@ -1,17 +1,46 @@
-<div>
-  <input [(ngModel)]="this.playerName">
-  <button (click)="addPlayer(playerName)">+</button>
+<div class="text-white font-display">
+  <h1 class="text-center text-5xl">Karty na melanż*</h1>
+  <div class="mx-auto mt-16 w-3/4">
+    <div class="flex h-10 w-full mx-auto my-2">
+      <select class="w-10/12 mx-auto px-2 bg-creamy text-black shadow-basic rounded-l-full" [(ngModel)]="this.selectedQuestionPool">
+        <option [ngValue]="undefined" hidden>Wybierz pulę kart</option>
+        <option class="bg-creamy" *ngFor="let question of questionPool" [ngValue]="question">{{question.name}}</option>
+      </select>
+      <button class="w-2/12 rounded-r-full bg-orange-500 shadow-basic hover:bg-orange-600 duration-300" (click)="questionSection()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6">
+          <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+          <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+        </svg>
+      </button>
+    </div>
+    <div class="flex h-10 w-full mx-auto my-6">
+      <input class="w-10/12 mx-auto px-4 bg-creamy text-black shadow-basic rounded-l-full" [(ngModel)]="this.playerName" placeholder="Dodaj osobę" maxlength="20">
+      <button class="w-2/12 rounded-r-full bg-orange-500 shadow-basic hover:bg-orange-600 duration-300" (click)="addPlayer()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor " class="m-auto w-6 h-6">
+        <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+        </svg>
+      </button>
+    </div>
+    <div class="w-1/2 mx-auto mt-8">
+      <button class="button-orange"(click)="startGame()">Jazda!</button>
+    </div>
+  </div>
+  <div class="mx-auto py-16 w-full">
+    <h1 *ngIf="playerList.length > 0" class="text-center text-2xl">Ilość osób: {{playerList.length}}</h1>
+    <ul class="text-black">
+      <li class="flex w-3/4 h-10 mx-auto my-4 bg-creamy shadow-basic rounded-xl" *ngFor="let player of playerList">
+        <div class="flex w-2/12">
+          <svg [ngStyle]="{'fill': player.color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6 stroke-black">
+            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+          </svg>   
+        </div>
+        <p class="flex m-auto w-8/12 text-lg truncate text-center">{{player.name}}</p>
+        <button class="w-2/12 rounded-r-xl bg-orange-500 hover:bg-orange-600 duration-300 text-white"(click)="removePlayer(player)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6">
+            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
-<div>
-  <select [(ngModel)]="this.selectedQuestionPool">
-    <option *ngFor="let question of questionPool" [ngValue]="question">{{question.name}}</option>
-  </select>
-  <button (click)="questionSection()">+</button>
-</div>
-<ul>
-  <li *ngFor="let player of playerList">
-    {{player}}
-    <button (click)="removePlayer(player)">X</button>
-  </li>
-</ul>
-<button (click)="startGame()">Start</button>

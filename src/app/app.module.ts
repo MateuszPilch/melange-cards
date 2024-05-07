@@ -8,8 +8,9 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment.development';
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { QuestionsDetailsComponent } from './questions/questions-details/questions-details.component';
+import { QuestionsComponent } from './components/questions/questions.component';
+import { QuestionsDetailsComponent } from './components/questions/questions-details/questions-details.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [

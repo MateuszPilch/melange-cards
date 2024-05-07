@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Question, QuestionPool } from '../../models/question.model';
 import { DocumentData, Firestore, addDoc, arrayRemove, arrayUnion, collection, collectionData, deleteDoc, doc, docData, updateDoc} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,14 @@ export class QuestionService {
   }
 
   addQuestionPool(questionPoolName: string, questionPoolPassword: string): void {
-    addDoc(this.questionCollection, {
-      'name': questionPoolName, 
-      'password': questionPoolPassword,
-      'questions': [],
+    bcrypt.hash(questionPoolPassword, 14, (err,hash) => {
+      addDoc(this.questionCollection, {
+        'name': questionPoolName, 
+        'password': hash,
+        'questions': [],
+      })
     })
+
   }
 
   removeQuestion(questionPool: QuestionPool, question: Question): void {

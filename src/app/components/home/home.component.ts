@@ -3,6 +3,7 @@ import { GameService } from '../../services/game/game.service';
 import { Router } from '@angular/router';
 import { QuestionPool } from '../../models/question.model';
 import { QuestionService } from '../../services/question/question.service';
+import { Player } from '../../models/player.model';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { QuestionService } from '../../services/question/question.service';
 export class HomeComponent {
 
   playerName: string = '';
-  playerList: string[] = [];
+  playerList: Player[] = [];
   questionPool: QuestionPool[] = [];
   selectedQuestionPool!: QuestionPool;
 
@@ -23,18 +24,20 @@ export class HomeComponent {
     });
   }
 
-  addPlayer(player: string): void {
-    this.gameService.addPlayer(player);
-    this.playerList = this.getPlayerList();
-    this.playerName = '';
+  addPlayer(): void {
+    if(this.playerName != ''){
+      this.gameService.addPlayer(new Player(this.playerName, this.generatePlayerColor()));
+      this.playerList = this.getPlayerList();
+      this.playerName = '';
+    }
   }
 
-  removePlayer(player: string): void {
+  removePlayer(player: Player): void {
     this.gameService.removePlayer(player);
     this.playerList = this.getPlayerList();
   }
 
-  getPlayerList(): string[] {
+  getPlayerList(): Player[] {
     return this.gameService.getPlayerList();
   }
 
@@ -46,5 +49,10 @@ export class HomeComponent {
 
   questionSection(): void {
     this.router.navigateByUrl('questions')
+  }
+
+  generatePlayerColor(): string {
+    let hue = Math.floor(360 * Math.random());
+    return 'hsl('+ hue.toString() +', 100%, 50%)';
   }
 }

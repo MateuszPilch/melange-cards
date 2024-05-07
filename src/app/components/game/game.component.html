@@ -1,5 +1,17 @@
-<b>{{playerList[currentPlayerIndex]}}</b>
-{{currentQuestion.text}}
-
-<button (click)="nextQuestion()">Next</button>
-<button (click)="homeSection()">Home</button>
+<div class="text-white font-display">
+  <button class="absolute left-4 top-6" (click)="homeSection()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+    </svg>
+  </button>
+  <h1 class="text-center text-4xl">Miłej zabawy</h1>
+  <div class="mx-auto mt-16 w-3/4 text-2xl">
+    <div class="h-[50vh]">
+      <b [ngStyle]="{'color': playerList[currentPlayerIndex].color}" *ngIf="currentQuestion.type != 1" class="text-3xl">{{playerList[currentPlayerIndex].name}}</b>
+      <b *ngIf="currentQuestion.type == 1" class="text-3xl text-green-500">Wszyscy</b> {{currentQuestion.text}}
+    </div>
+    <div class="w-1/2 mx-auto mt-8 bottom-0">
+      <button class="button-orange" (click)="nextQuestion()">Następne</button>
+    </div>
+  </div>
+</div>

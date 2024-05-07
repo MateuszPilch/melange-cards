@@ -1,0 +1,48 @@
+<div class="text-white font-display">
+  <button class="absolute left-4 top-6" (click)="questionSection()">   
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+    </svg>
+  </button>
+  <button class="absolute right-4 top-6" (click)="removeQuestionPool(questionPool)">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+    </svg>
+  </button>
+  <h1 class="text-center text-4xl">Edytuj zestaw</h1>   
+  <div class="block mt-2 w-3/4 mx-auto">
+    <textarea class="w-full h-32 my-4 px-4 py-2 resize-none bg-creamy text-black shadow-basic rounded-xl" [(ngModel)]="this.questionText" placeholder="Treść karty"></textarea>
+    <select class="w-full h-10 mx-auto px-2 bg-creamy text-black shadow-basic rounded-full" [(ngModel)]="this.questionType">
+      <option [ngValue]="undefined" hidden>Wybierz rodzaj pytania</option>
+      <option value="0">Dla jednej osoby</option>
+      <option value="1">Dla wszystkich</option>
+    </select>
+    <div class="w-1/2 mx-auto mt-8">
+      <button class="button-orange"(click)="addQuestion()">Dodaj</button>
+    </div>
+  </div>
+  <div class="mx-auto py-16 w-full">
+    <p class="w-full mx-auto text-center text-2xl">Lista kart</p>
+    <ul *ngIf="questionPool" class="text-black">
+      <li class="flex w-3/4 min-h-10 h-fit mx-auto my-4" *ngFor="let question of questionPool.questions">
+        <div class="flex w-full bg-creamy shadow-basic rounded-l-xl">
+          <div class="flex w-2/12">
+            <svg *ngIf="question.type != 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6">
+              <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+            </svg>          
+            <svg *ngIf="question.type == 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6">
+              <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+              <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+            </svg>
+          </div>
+          <p class="flex m-auto w-10/12">{{question.text}}</p>
+        </div>
+        <button class="w-2/12 rounded-r-xl bg-orange-500 text-white shadow-basic hover:bg-orange-600 duration-300"(click)="removeQuestion(questionPool, question)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="m-auto w-6 h-6">
+            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

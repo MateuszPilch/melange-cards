@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button-orange {
+  @apply w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 shadow-basic text-2xl font-bold rounded-full duration-300
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("assets/fonts/Oswald.ttf");
+}

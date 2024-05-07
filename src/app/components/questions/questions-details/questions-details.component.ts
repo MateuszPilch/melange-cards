@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Question, QuestionPool } from '../../models/question.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../services/question/question.service';
+import { QuestionPool, Question } from '../../../models/question.model';
+import { QuestionService } from '../../../services/question/question.service';
 
 @Component({
   selector: 'app-questions-details',
@@ -12,7 +12,6 @@ export class QuestionsDetailsComponent {
   questionText: string = '';
   questionType: number = 0;
   questionPool!: QuestionPool;
-  areQuestionsVisible: boolean = false;
 
   constructor(private questionService: QuestionService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -32,11 +31,12 @@ export class QuestionsDetailsComponent {
     this.questionService.removeQuestion(questionPool, question);
   }
 
-  questionSection(): void {
+  removeQuestionPool(questsionPool: QuestionPool): void {
+    this.questionService.removeQuestionPool(questsionPool);
     this.router.navigateByUrl('questions')
   }
 
-  questionsVisibility(): void {
-    this.areQuestionsVisible = !this.areQuestionsVisible;
+  questionSection(): void {
+    this.router.navigateByUrl('questions')
   }
 }
